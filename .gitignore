@@ -1,0 +1,11 @@
+.vscode/
+
+AbstinenceManager/__pycache__/
+counter/migrations/
+counter/__pycache__/
+counter/templatetags/__pycache__/
+
+db.sqlite3
+nohup.out
+setup.txt
+run.bat

@@ -1,0 +1,78 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary border-bottom border-light">
+    <div class="container-fluid">
+    <a class="navbar-brand" href="/">Abstinence Manager</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+                <a class="nav-link active" href="/">Home
+                <span class="visually-hidden">(current)</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/resources">Resources</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/contact">Contact</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/about">About</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ms-auto">
+            {% if request.user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="/history">History</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/overview">Overview</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/trophies">Your trophies</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="/login">Login</a>
+            </li>
+            {% endif %}
+        </ul>
+        <form class="d-flex">
+            <input class="form-control me-sm-2" type="text" placeholder="Search">
+            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+    </div>
+</nav>
+
+{% if request.session.unchecked_trophies == True %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="liveToast" class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <i class="fa-solid fa-trophy text-warning"></i>
+        <strong class="ms-auto">Congratulations!</strong>
+        <button type="button" class="btn-close" onclick="trophies_checked();" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        <strong>You just earned a trophy for one of your abstinences!
+        <a href="/trophies/">Take a look!</a></strong>
+      </div>
+    </div>
+</div>
+
+<script>
+    function trophies_checked() {
+        $('#liveToast').toast('hide');
+
+        $.post("/check-trophies/", {
+            csrfmiddlewaretoken: '{{ csrf_token }}'
+        });
+    };
+</script>
+{% endif %}

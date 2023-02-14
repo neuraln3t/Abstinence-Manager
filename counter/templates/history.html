@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% load static %}
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+        
+
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        {% include "header.html" %}
+
+        <div id="content" class="bg-dark">
+            <div class="container p-5">
+                <h1><u>History</u></h1>
+                <small><strong class="text-light">Here you can see your history of abstinences. Whenever you reset or stop an abstinence phase it will be saved here</strong></small>
+                <table class="table mt-5">
+                    <thead class="thead-light">
+                    <tr class="text-light">
+                        <th scope="col">#</th>
+                        <th scop="col">Abstinence</th>
+                        <th scope="col">Duration</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% load filters %}
+                        {% for entry in history.entries.all %}
+                            {% if entry.count == all_time_record %}
+                            <tr class="bg-light border-dark border-3">
+                                <th scope="row">{{ forloop.counter }}</th>
+                                <td>{{ entry.abstinence.name }}</td>
+                                <td>{{ entry.count|split:"." }}</td>
+                            </tr>
+                            {% else %}
+                            <tr class="text-light">
+                                <th scope="row">{{ forloop.counter0 }}</th>
+                                <td>{{ entry.abstinence.name }}</td>
+                                <td>{{ entry.count|split:"." }}</td>
+                            </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        
+    </body>
+</html>

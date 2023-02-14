@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap');
+
+body {
+    height: 100%;
+    width: 100%;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    background-color: #09090a;
+}
+
+#content {
+    height: 60em;
+    margin-left: 8vw;
+    margin-right: 8vw;
+}
+
+#counter {
+    color: white;
+}
+
+#pr {
+    font-size: 30px;
+    color: white;
+}
+
+.text-giant {
+    font-size: 120px;
+}
+
+.text-big {
+    font-size: 50px;
+}
